@@ -1,0 +1,26 @@
+.DS_Store
+node_modules/
+bundles/
+android_bundles
+android_assets
+debug_bundles
+debug_assets
+npm-debug.log
+yarn-error.log
+android
+0609
+app-android
+yarn.lock
+package-lock.json
+
+# Editor directories and files
+.idea
+.vscode
+.expo
+.svn
+.project
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+package-lock.json
