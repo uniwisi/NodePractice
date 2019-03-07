@@ -13,13 +13,13 @@ function send404(response) {
 function sendFile(response, filePath, fileContents) {
   response.writeHead(
     200,
-    { "content-type": mime.lookup(path.basename(filePath)) }
+    { "content-type": mime.getType(path.basename(filePath)) }
   );
   response.end(fileContents)
 }
 
 function serveStatic(response, cache, absPath) {
-  if (cache[abbsPath]) {
+  if (cache[absPath]) {
     sendFile(response, absPath, cache[absPath]);
   } else {
     fs.exists(absPath, function (exists) {
@@ -40,3 +40,21 @@ function serveStatic(response, cache, absPath) {
 
   }
 }
+
+var server = http.createServer(function (request, response) {
+  var filePath = false;
+  if (request.url == '/') {
+    filePath = 'public/index.html';
+  } else {
+    filePath = 'public' + request.url;
+  }
+  var absPath = './' + filePath;
+  serveStatic(response, cache, absPath)
+});
+
+server.listen(3000, function () {
+  console.log("Server listening on port 3000.");
+})
+
+var chatServer = require('./lib/chat_server');
+chatServer.listen(server);
